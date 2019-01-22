@@ -1,11 +1,12 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
 import { connect } from 'react-redux'
 
-import Column from '../components/Column'
-import Modal from '../components//Modal'
-import Welcome from '../components//Welcome'
 
-import { changeTitle } from '../actions/columnTitlesActions'
+import Modal from './Modal'
+import Welcome from './Welcome'
+import Board from '../containers/Board'
+
+import { changeTitle } from '../actions/columnActions'
 import { updateCards } from '../actions/cardsActions'
 import { updateComments } from '../actions/commentsAction'
 import { setUser } from '../actions/userAction'
@@ -26,17 +27,6 @@ class App extends Component {
         this.props.updateCardsAction(nextCards);
     };
 
-    renderTitleForColumn = (id) => {
-        const titles = this.props.columnsTitleList.columnsTitleList;
-        let titlesTemplate = null;
-
-        if(titles) {
-            titlesTemplate = titles.filter(function(title) {
-                return title.columnId === id
-            })
-        }
-        return titlesTemplate[0]
-    }
 
     renderCardForColumn = (id) => {
         const cards = this.props.cardsList.cardsList;
@@ -237,44 +227,8 @@ class App extends Component {
                         close={this.handleBtnClickWelcome}
                         validate={this.validateWelcome}
                     />}
-                    {!isVisibleWelcome && <div>
-                        <Column
-                            columnId={1}
-                            title={this.renderTitleForColumn}
-                            cards={this.renderCardForColumn}
-                            createCard={this.handleAddCards}
-                            modal={this.handleShowModal}
-                            comments={commentsList}
-                            changeTitle={this.handleChangeTitleColumn}
-                        />
-                        <Column
-                            columnId={2}
-                            cards={this.renderCardForColumn}
-                            createCard={this.handleAddCards}
-                            modal={this.handleShowModal}
-                            comments={commentsList}
-                            title={this.renderTitleForColumn}
-                            changeTitle={this.handleChangeTitleColumn}
-                        />
-                        <Column
-                            columnId={3}
-                            cards={this.renderCardForColumn}
-                            createCard={this.handleAddCards}
-                            modal={this.handleShowModal}
-                            comments={commentsList}
-                            title={this.renderTitleForColumn}
-                            changeTitle={this.handleChangeTitleColumn}
-                        />
-                        <Column
-                            columnId={4}
-                            cards={this.renderCardForColumn}
-                            createCard={this.handleAddCards}
-                            modal={this.handleShowModal}
-                            comments={commentsList}
-                            title={this.renderTitleForColumn}
-                            changeTitle={this.handleChangeTitleColumn}
-                        />
-                    </div>}
+                    {!isVisibleWelcome &&
+                    <Board />}
                     {isVisibleModal &&
                     <Modal
                         card={modalCard}
