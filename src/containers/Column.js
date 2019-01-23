@@ -35,8 +35,8 @@ class Column extends Component {
     };
 
     handleShowModal = (id) => {
-        const cards = this.props.cardsList.cardsList;
-        const cardForModal = cards.filter(function(card) {
+        const { cardsList } = this.props;
+        const cardForModal = cardsList.filter(function(card) {
             return card.id === id
         });
 
@@ -47,11 +47,11 @@ class Column extends Component {
         const user = this.props.user;
         const columnId = this.props.columnId;
         const newCard = {...data, user: user, columnId: columnId}
-        console.log(newCard)
         this.props.addCardAction(newCard);
     }
 
     render() {
+        console.log('-----render Column')
         const { columnId, title, commentsList } = this.props;
         return (
             <div className={'column'} >
@@ -62,7 +62,7 @@ class Column extends Component {
                 />
                 <ListOfCard
                     columnId={columnId}
-                    data={this.renderCards()}
+                    data={this.renderCards}
                     modal={this.handleShowModal}
                     comments={commentsList}
                 />

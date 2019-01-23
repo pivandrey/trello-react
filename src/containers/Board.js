@@ -6,6 +6,7 @@ import Column from '../components/Column'
 class Board extends Component {
 
     render() {
+        console.log('-----render Board')
         return(
             <div>
                 {this.props.columnsList.map(c => (

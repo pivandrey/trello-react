@@ -23,6 +23,7 @@ class CardMini extends Component {
     }
 
     render() {
+        console.log('-----render CardMini')
 
         const { title, comments, id } = this.props.data;
 

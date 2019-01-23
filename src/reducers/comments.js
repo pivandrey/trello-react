@@ -8,7 +8,7 @@ export function commentsReducer(state = initialState, action) {
     switch (action.type) {
         case ADD_COMMENTS:
             const { data } = action.payload;
-            return {commentsList: [...state, data]}
+            return {commentsList: [...state.commentsList, data]}
 
         case DELETE_COMMENTS:
             const id_delete = action.payload.id;

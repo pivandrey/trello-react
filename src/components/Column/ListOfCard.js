@@ -19,6 +19,7 @@ class ListOfCard extends Component {
     }
 
     render() {
+        console.log('-----render List of card')
         return (
             <div>
                 {this.renderCards()}
