@@ -10,6 +10,7 @@ class Board extends Component {
             <div>
                 {this.props.columnsList.map(c => (
                     <Column
+                        key={c.id}
                         columnId={c.id}
                         title={c.title}
                         changeTitle={this.changeTitle}
@@ -22,7 +23,7 @@ class Board extends Component {
 
 const mapStateToProps = store => {
     return {
-        columnsList: store.columns.columnsTitleList,
+        columnsList: store.columns.columnsList,
     }
 }
 

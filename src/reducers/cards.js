@@ -28,8 +28,8 @@ export function cardsReducer(state = initialState, action) {
             return { cardsList: cards_description}
 
         case ADD_CARD:
-            const { data } = action.payload;
-            return {cardsList: [...state, data]}
+            const data = action.payload;
+            return { cardsList: [...state, data]}
         
         case DELETE_CARD:
             const id_delete = action.payload.id;

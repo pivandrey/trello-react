@@ -9,7 +9,7 @@ import { changeTitle } from '../actions/columnsActions'
 import { sendCard } from '../actions/modalCardActions'
 import { addCard } from '../actions/cardsActions'
 
-import '../../style.css'
+import '../style.css'
 
 class Column extends Component {
 
@@ -47,6 +47,7 @@ class Column extends Component {
         const user = this.props.user;
         const columnId = this.props.columnId;
         const newCard = {...data, user: user, columnId: columnId}
+        console.log(newCard)
         this.props.addCardAction(newCard);
     }
 
@@ -66,7 +67,7 @@ class Column extends Component {
                     comments={commentsList}
                 />
                 <AddCard
-                    onAddCards = {this.props.createCard}
+                    onAddCards={this.handleAddCard}
                 />
             </div>
         )
