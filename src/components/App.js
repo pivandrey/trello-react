@@ -36,7 +36,7 @@ class App extends Component {
     render() {
         console.log('-----render App')
         const isVisibleModal = this.props.isVisibleModal;
-        const { isVisibleWelcome } = this.props.isVisibleWelcome;
+        const isVisibleWelcome = this.props.isVisibleWelcome;
         const isFetching = this.props.isFetching;
 
         return (

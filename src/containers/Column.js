@@ -62,7 +62,7 @@ class Column extends Component {
                 />
                 <ListOfCard
                     columnId={columnId}
-                    data={this.renderCards}
+                    data={this.renderCards()}
                     modal={this.handleShowModal}
                     comments={commentsList}
                 />

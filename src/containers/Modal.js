@@ -40,7 +40,7 @@ class Modal extends Component {
     };
 
     handleDeleteComment = (id) => {
-        this.props.updateCommentsAction(id);
+        this.props.deleteCommentsAction(id);
     };
 
     renderComments = () => {
@@ -105,7 +105,7 @@ class Modal extends Component {
                     deleteComment={this.handleDeleteComment}
                 />
                 <button className={'btn-modal__close'} onClick={this.handleCloseModal}>X</button>
-                <button className={'btn-modal__delete'} onClick={this.props.deleteCard} >Удалить карточку</button>
+                <button className={'btn-modal__delete'} onClick={this.handleDeleteCard} >Удалить карточку</button>
             </div>
         )
     }

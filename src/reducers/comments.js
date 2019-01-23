@@ -7,15 +7,15 @@ const initialState = {
 export function commentsReducer(state = initialState, action) {
     switch (action.type) {
         case ADD_COMMENTS:
-            const { data } = action.payload;
+            const data = action.payload;
             return {commentsList: [...state.commentsList, data]}
 
         case DELETE_COMMENTS:
-            const id_delete = action.payload.id;
-            const comments_delete = state.filter(function(comment) {
-                return comment.id !== id_delete
+            const id = action.payload;
+            const commentsDelete = state.commentsList.filter(function(comment) {
+                return comment.id !== id
             })
-            return comments_delete
+            return { commentsList: commentsDelete }
 
         default:
             return state

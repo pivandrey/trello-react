@@ -12,6 +12,10 @@ class Welcome extends Component {
         }
     }
 
+    handleClickAccept = () => {
+        this.props.visibleWelcomeAction(false)
+    }
+
     handleChangeUserName = (e) => {
         const userName = e.target.value
         this.props.setUserAction(userName)
@@ -32,12 +36,12 @@ class Welcome extends Component {
                         type="text"
                         name="user"
                         placeholder={'Введите Ваше имя'}
-                        onChange={this.handleChangeUserName}
+                        onBlur={this.handleChangeUserName}
                         onKeyUp={this.handlePressEnter}
                     ></textarea> <br />
                     <button
                         className={'btn-welcome-close'}
-                        onClick={this.props.close}
+                        onClick={this.handleClickAccept}
                         disabled={!this.validateWelcome()}
                     >Продолжить</button>
                 </div>

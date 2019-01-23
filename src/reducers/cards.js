@@ -3,40 +3,48 @@ import { CHANGE_DESCRIPTION_CARD } from '../actions/cardsActions'
 import { ADD_CARD } from '../actions/cardsActions'
 import { DELETE_CARD } from '../actions/cardsActions'
 
+const archive = null;
+const returnCards = JSON.parse(localStorage.getItem('cards'));
+if (returnCards) {
+    archive = returnCards
+} else {
+    archive = []
+}
+
 const initialState = {
-    cardsList: [],
+    cardsList: archive,
 }
 
 export function cardsReducer(state = initialState, action) {
     switch (action.type) {
         case CHANGE_TITLE_CARD:
-            const id_title = action.payload.id;
-            const value_title = action.payload.value;
-            const cards_title = state.map(function(card) {
-                if (card.id === id_title) return card.title = value_title
+            const idTitle = action.payload.id;
+            const valueTitle = action.payload.value;
+            const cardsTitle = state.cardsList.map(function(card) {
+                if (card.id === idTitle) return {...card, title: valueTitle}
                 else return card
             })
-            return { cardsList: cards_title}
+            return { cardsList: cardsTitle}
 
         case CHANGE_DESCRIPTION_CARD:
-            const id_description = action.payload.id;
-            const value_value = action.payload.value;
-            const cards_description = state.map(function(card) {
-                if (card.id === id_description) return card.desctiption = value_value
+            const idDescription = action.payload.id;
+            const valueDescription = action.payload.value;
+            const cardsDescription = state.cardsList.map(function(card) {
+                if (card.id === idDescription) return {...card, description: valueDescription}
                 else return card
             })
-            return { cardsList: cards_description}
+            return { cardsList: cardsDescription}
 
         case ADD_CARD:
             const data = action.payload;
             return { cardsList: [...state.cardsList, data]}
         
         case DELETE_CARD:
-            const id_delete = action.payload.id;
-            const cards_delete = state.filter(function(card) {
-                return card.id !== id_delete
+            const id = action.payload;
+            const cardsDelete = state.cardsList.filter(function(card) {
+                return card.id !== id
             })
-            return cards_delete
+            return { cardsList: cardsDelete }
         
         default:
             return state

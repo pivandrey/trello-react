@@ -24,13 +24,13 @@ const initialState = {
 export function columnsReducer(state = initialState, action) {
     switch (action.type) {
         case CHANGE_COLUMN_TITLE:
-            const { id } =  action.payload;
-            const { value } = action.payload;
-            const columnsList = state.map(function(c) {
-                if (c.id === id) {
-                    return c.title = value
+            const id = action.payload.id;
+            const value = action.payload.value;
+            const columnsList = state.columnsList.map(function(column) {
+                if (column.id === id) {
+                    return {...column, title: value}
                 } else {
-                    return c
+                    return column
                 }
             })
             return { columnsList: columnsList }
