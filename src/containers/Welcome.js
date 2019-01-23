@@ -7,69 +7,69 @@ import { visibleWelcome } from '../actions/visibleWelcomeActions'
 
 class Welcome extends Component {
 
-    handlePressEnter = (e) => {
-        if (e.keyCode === 13) {
-            e.preventDefault();
-            this.props.visibleWelcomeAction(false)
-        }
+  handlePressEnter = (e) => {
+    if (e.keyCode === 13) {
+      e.preventDefault();
+      this.props.visibleWelcomeAction(false)
     }
+  }
 
-    handleClickAccept = () => {
-        this.props.visibleWelcomeAction(false)
-    }
+  handleClickAccept = () => {
+    this.props.visibleWelcomeAction(false)
+  }
 
-    handleChangeUserName = (e) => {
-        const userName = e.target.value
-        this.props.setUserAction(userName)
-    };
+  handleChangeUserName = (e) => {
+    const userName = e.target.value
+    this.props.setUserAction(userName)
+  };
 
-    validateWelcome = () => {
-        const user = this.props.user;
-        if (user.trim()) return true
-    };
+  validateWelcome = () => {
+    const user = this.props.user;
+    if (user.trim()) return true
+  };
 
-    render() {
-        return(
-            <div className={'welcome__modal_out'}>
-                <div className={'welcome__modal'}>
-                    <h3 className={'welcome-header'}>trello</h3>
-                    <textarea
-                        className={'welcome-text'}
-                        type="text"
-                        name="user"
-                        placeholder={'Введите Ваше имя'}
-                        onChange={this.handleChangeUserName}
-                        onKeyUp={this.handlePressEnter}
-                    ></textarea> <br />
-                    <button
-                        className={'btn-welcome-close'}
-                        onClick={this.handleClickAccept}
-                        disabled={!this.validateWelcome()}
-                    >Продолжить</button>
-                </div>
-            </div>
-        )
-    }
+  render() {
+    return(
+      <div className={'welcome__modal_out'}>
+        <div className={'welcome__modal'}>
+          <h3 className={'welcome-header'}>trello</h3>
+          <textarea
+            className={'welcome-text'}
+            type="text"
+            name="user"
+            placeholder={'Введите Ваше имя'}
+            onChange={this.handleChangeUserName}
+            onKeyUp={this.handlePressEnter}
+          ></textarea> <br />
+          <button
+            className={'btn-welcome-close'}
+            onClick={this.handleClickAccept}
+            disabled={!this.validateWelcome()}
+          >Продолжить</button>
+        </div>
+      </div>
+    )
+  }
 }
 
 Welcome.propTypes = {
-    user: PropTypes.string.isRequired,
+  user: PropTypes.string.isRequired,
 }
 
 const mapStateToProps = store => {
-    return {
-        user: store.user.user,
-    }
+  return {
+    user: store.user.user,
+  }
 }
 
 const mapDispatchToProps = dispatch => {
-    return {
-        setUserAction: user => dispatch(setUser(user)),
-        visibleWelcomeAction: off => dispatch(visibleWelcome(off)),
-    }
+  return {
+    setUserAction: user => dispatch(setUser(user)),
+    visibleWelcomeAction: off => dispatch(visibleWelcome(off)),
+  }
 }
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(Welcome)

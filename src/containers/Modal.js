@@ -15,130 +15,129 @@ import '../style.css'
 
 class Modal extends Component {
 
-    changeTitleFromModal = (e) => {
-        const newValue =  e.target.value;
-        const currentCardId = this.props.currentCardId;
-        const newTitle = {
-            id: currentCardId,
-            value: newValue,
-        }
-        this.props.changeTitleCardAction(newTitle)
-    };
+  changeTitleFromModal = (e) => {
+    const newValue =  e.target.value;
+    const currentCardId = this.props.currentCardId;
+    const newTitle = {
+      id: currentCardId,
+      value: newValue,
+    }
+    this.props.changeTitleCardAction(newTitle)
+  };
 
-    changeDescriptionFromModal = (e) => {
-        const newValue =  e.target.value;
-        const currentCardId = this.props.currentCardId;
-        const newDescription = {
-            id: currentCardId,
-            value: newValue,
-        }
-        this.props.changeDescriptionCard(newDescription)
-    };
+  changeDescriptionFromModal = (e) => {
+    const newValue =  e.target.value;
+    const currentCardId = this.props.currentCardId;
+    const newDescription = {
+      id: currentCardId,
+      value: newValue,
+    }
+    this.props.changeDescriptionCard(newDescription)
+  };
 
-    handleAddComment = (newComment) => {
-        const nextComment = {...newComment, author: this.props.user}
-        this.props.addCommentAction(nextComment);
-    };
+  handleAddComment = (newComment) => {
+    const nextComment = {...newComment, author: this.props.user}
+    this.props.addCommentAction(nextComment);
+  };
 
-    handleDeleteComment = (id) => {
-        this.props.deleteCommentsAction(id);
-    };
+  handleDeleteComment = (id) => {
+    this.props.deleteCommentsAction(id);
+  };
 
-    renderComments = () => {
-        const comments = this.props.commentsList;
-        const id = this.props.currentCardId;
-        let commentsTemplate = null;
+  renderComments = () => {
+    const comments = this.props.commentsList;
+    const id = this.props.currentCardId;
+    let commentsTemplate = null;
 
-        if(comments.length) {
-            commentsTemplate = comments.filter(function(comment) {
-                return comment.cardId === id
-            })
-        }
-        return commentsTemplate
-    };
+    if(comments.length) {
+      commentsTemplate = comments.filter( (comment) => {
+        return comment.cardId === id
+      })
+    }
+    return commentsTemplate
+  };
 
-    handleDeleteCard = () => {
-        const cardID = this.props.currentCardId;
-        this.props.closeModalAction(false);
-        this.props.deleteCardAction(cardID);
-    };
+  handleDeleteCard = () => {
+    const cardID = this.props.currentCardId;
+    this.props.closeModalAction(false);
+    this.props.deleteCardAction(cardID);
+  };
     
-    componentDidMount() {
-        this.initializeEscClosing();
-    }
+  componentDidMount() {
+    this.initializeEscClosing();
+  }
 
-    initializeEscClosing = () => {
-        if (typeof window !== 'undefined') {
-            window.addEventListener('keydown', (e) => {
-                if (e.which === 27) {
-                    this.props.closeModalAction(false);
-                }
-            });
+  initializeEscClosing = () => {
+    if (typeof window !== 'undefined') {
+      window.addEventListener('keydown', (e) => {
+        if (e.which === 27) {
+          this.props.closeModalAction(false);
         }
-    };
-
-    handleCloseModal = () => {
-        this.props.closeModalAction(false);
-    };
-
-    render() {
-
-        return(
-            <div className={'modal'}>
-                <ModalTitle
-                    title={this.props.modalCard.title}
-                    user={this.props.user}
-                    changeTitle={this.changeTitleFromModal}
-                />
-                <ModalDescription
-                    description={this.props.modalCard.description}
-                    changeDescription={this.changeDescriptionFromModal}
-                />
-                <h3 className={'modal__comments'}>Комментарии</h3>
-                <ModalAddComment
-                    onAddComment={this.handleAddComment}
-                    curCardId={this.props.currentCardId}
-                />
-                <h3 className={'modal__comments modal__actions'}>Действия</h3>
-                <ModalComments
-                    comments={this.renderComments()}
-                    deleteComment={this.handleDeleteComment}
-                />
-                <button className={'btn-modal__close'} onClick={this.handleCloseModal}>X</button>
-                <button className={'btn-modal__delete'} onClick={this.handleDeleteCard} >Удалить карточку</button>
-            </div>
-        )
+      });
     }
+  };
+
+  handleCloseModal = () => {
+    this.props.closeModalAction(false);
+  };
+
+  render() {
+    return(
+      <div className={'modal'}>
+        <ModalTitle
+          title={this.props.modalCard.title}
+          user={this.props.user}
+          changeTitle={this.changeTitleFromModal}
+        />
+        <ModalDescription
+          description={this.props.modalCard.description}
+          changeDescription={this.changeDescriptionFromModal}
+        />
+        <h3 className={'modal__comments'}>Комментарии</h3>
+        <ModalAddComment
+          onAddComment={this.handleAddComment}
+          curCardId={this.props.currentCardId}
+        />
+        <h3 className={'modal__comments modal__actions'}>Действия</h3>
+        <ModalComments
+          comments={this.renderComments()}
+          deleteComment={this.handleDeleteComment}
+        />
+        <button className={'btn-modal__close'} onClick={this.handleCloseModal}>X</button>
+        <button className={'btn-modal__delete'} onClick={this.handleDeleteCard} >Удалить карточку</button>
+      </div>
+    )
+  }
 }
 
 Modal.propTypes = {
-    user: PropTypes.string.isRequired,
-    commentsList: PropTypes.array,
-    modalCard: PropTypes.object.isRequired,
-    currentCardId: PropTypes.string.isRequired,
+  user: PropTypes.string.isRequired,
+  commentsList: PropTypes.array,
+  modalCard: PropTypes.object.isRequired,
+  currentCardId: PropTypes.string.isRequired,
 }
 
 const mapStateToProps = store => {
-    return {
-        user: store.user.user,
-        commentsList: store.comments.commentsList,
-        modalCard: store.modal.card,
-        currentCardId: store.modal.currentCardId,
-    }
+  return {
+    user: store.user.user,
+    commentsList: store.comments.commentsList,
+    modalCard: store.modal.card,
+    currentCardId: store.modal.currentCardId,
+  }
 }
 
 const mapDispatchToProps = dispatch => {
-    return {
-        closeModalAction: off => dispatch(closeModal(off)),
-        deleteCardAction: id => dispatch(deleteCard(id)),
-        changeTitleCardAction: data => dispatch(changeTitleCard(data)),
-        changeDescriptionCard: data => dispatch(changeDescriptionCard(data)),
-        addCommentAction: data => dispatch(addComments(data)),
-        deleteCommentsAction: id => dispatch(deleteComments(id))
-    }
+  return {
+    closeModalAction: off => dispatch(closeModal(off)),
+    deleteCardAction: id => dispatch(deleteCard(id)),
+    changeTitleCardAction: data => dispatch(changeTitleCard(data)),
+    changeDescriptionCard: data => dispatch(changeDescriptionCard(data)),
+    addCommentAction: data => dispatch(addComments(data)),
+    deleteCommentsAction: id => dispatch(deleteComments(id))
+  }
 }
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(Modal)

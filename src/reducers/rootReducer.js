@@ -7,10 +7,10 @@ import { visibleWelcomeReducer } from './visibleWelcome'
 import { modalCardReducer } from './modalCard'
 
 export const rootReducer = combineReducers ({
-    cards: cardsReducer,
-    columns: columnsReducer,
-    comments: commentsReducer,
-    user: userReducer,
-    welcome: visibleWelcomeReducer,
-    modal: modalCardReducer,
+  cards: cardsReducer,
+  columns: columnsReducer,
+  comments: commentsReducer,
+  user: userReducer,
+  welcome: visibleWelcomeReducer,
+  modal: modalCardReducer,
 })

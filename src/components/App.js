@@ -12,42 +12,42 @@ import '../style.css'
 
 class App extends Component {
 
-    render() {
-        const isVisibleModal = this.props.isVisibleModal;
-        const isVisibleWelcome = this.props.isVisibleWelcome;
-        const isFetching = this.props.isFetching;
+  render() {
+    const isVisibleModal = this.props.isVisibleModal;
+    const isVisibleWelcome = this.props.isVisibleWelcome;
+    const isFetching = this.props.isFetching;
 
-        return (
-            <div>
-                <div className='column_list'>
-                    {isVisibleWelcome &&
-                    <Welcome />}
-                    {!isVisibleWelcome &&
-                    <Board />}
-                    {isVisibleModal &&
-                    <Modal />}
-                    {isFetching && 
-                    <p className="download">Загрузка...</p>}
-                </div>
-            </div>
-        )
-    }
+    return (
+      <div>
+        <div className='column_list'>
+          {isVisibleWelcome &&
+          <Welcome />}
+          {!isVisibleWelcome &&
+          <Board />}
+          {isVisibleModal &&
+          <Modal />}
+          {isFetching && 
+          <p className="download">Загрузка...</p>}
+        </div>
+      </div>
+    )
+  }
 }
 
 App.propTypes = {
-    isVisibleWelcome: PropTypes.bool.isRequired,
-    isVisibleModal: PropTypes.bool.isRequired,
-    isFetching: PropTypes.bool.isRequired,
+  isVisibleWelcome: PropTypes.bool.isRequired,
+  isVisibleModal: PropTypes.bool.isRequired,
+  isFetching: PropTypes.bool.isRequired,
 }
 
 const mapStateToProps = store => {
-    return {
-        isVisibleWelcome: store.welcome.isVisibleWelcome,
-        isVisibleModal: store.modal.isVisibleModal,
-        isFetching: store.modal.isFetching,
-    }
+  return {
+    isVisibleWelcome: store.welcome.isVisibleWelcome,
+    isVisibleModal: store.modal.isVisibleModal,
+    isFetching: store.modal.isFetching,
+  }
 }
 
 export default connect(
-    mapStateToProps
+  mapStateToProps
 )(App)

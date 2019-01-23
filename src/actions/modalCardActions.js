@@ -4,23 +4,23 @@ export const CLOSE_MODAL = 'CLOSE_MODAL';
 
 
 export function sendCard (card) {
-    return  dispatch => {
-        dispatch({
-            type: SEND_CARD_REQUEST,
-            payload: null
-        })
-        setTimeout(() => {
-            dispatch({
-                type: SEND_CARD_SUCCESS,
-                payload: card,
-            })
-        }, 300)
-    }
+  return  dispatch => {
+    dispatch({
+      type: SEND_CARD_REQUEST,
+      payload: null
+    })
+    setTimeout(() => {
+      dispatch({
+        type: SEND_CARD_SUCCESS,
+        payload: card,
+      })
+    }, 300)
+  }
 };
 
 export function closeModal (off) {
-    return {
-        type: CLOSE_MODAL,
-        payload: off
-    }
+  return {
+    type: CLOSE_MODAL,
+    payload: off
+  }
 };
