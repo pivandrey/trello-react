@@ -8,24 +8,14 @@ class CardMini extends Component {
         const { id } = this.props.data;
         this.props.modal(id)
     }
-
-    calculateComments = () => {
-        const { id } = this.props.data;
-        const { commentsCounter } = this.props;
-        const countOfComments = commentsCounter.filter(function(count) {
-            return count.id === id
-        })
-        return countOfComments[0].count;
-    }
-
+    
     render() {
 
-        const { title } = this.props.data;
-        console.log(this.props.data.id)
+        const { title, countComments } = this.props.data;
         return(
             <div className={'card_mini'} onClick={this.handleClick} >
                 <CardTitle data={title} />
-                <p className={'comments-count'}>{this.calculateComments()}</p>
+                <p className={'comments-count'}>{countComments}</p>
             </div>
         )
     }
@@ -35,7 +25,6 @@ CardMini.propTypes = {
     id: PropTypes.string.isRequired,
     data: PropTypes.object.isRequired,
     modal: PropTypes.func.isRequired,
-    commentsCounter: PropTypes.array.isRequired,
 }
 
 export default CardMini

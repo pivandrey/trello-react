@@ -24,12 +24,17 @@ class Column extends Component {
     }
 
     getCards = () => {
-        const { columnId, cardsList } = this.props;
+        const { columnId, cardsList, commentsList } = this.props;
 
         const cardsForColumn = cardsList.filter(function(card) {
             return card.columnId === columnId
+        }).map( (card) => {
+            let x = 0;
+            commentsList.filter(function(comment) {
+                if (card.id === comment.cardId) return ++x
+            }); 
+            return { ...card, countComments: x }
         })
-
         return cardsForColumn;
     };
 
@@ -41,19 +46,6 @@ class Column extends Component {
 
         this.props.sendCardAction(cardForModal[0]);
     };
-
-    calculateComments = () => {
-        const { commentsList, cardsList } = this.props;
-        const cards = cardsList.map(function (card) {
-            let x = 0;
-            commentsList.filter(function(comment) {
-                if (card.id === comment.cardId) return ++x
-            }); 
-            return { id: card.id, count: x }
-        })
-        console.log(cards)
-        return cards;
-    }
 
     handleAddCard = (data) => {
         const user = this.props.user;
@@ -75,7 +67,6 @@ class Column extends Component {
                     columnId={columnId}
                     data={this.getCards()}
                     modal={this.handleShowModal}
-                    commentsCounter={this.calculateComments()}
                 />
                 <AddCard
                     onAddCards={this.handleAddCard}

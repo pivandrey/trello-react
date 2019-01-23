@@ -10,7 +10,6 @@ class ListOfCard extends Component {
     render() {
         const data = this.props.data
         const modal = this.props.modal
-        const commentsCounter = this.props.commentsCounter
         return (
             <div>
                 {
@@ -19,8 +18,7 @@ class ListOfCard extends Component {
                             key={item.id} 
                             id={item.id} 
                             modal={modal} 
-                            data={item} 
-                            commentsCounter={commentsCounter} 
+                            data={item}
                         />
                     ))
                 }
@@ -32,7 +30,6 @@ class ListOfCard extends Component {
 ListOfCard.propTypes = {
     columnId: PropTypes.number.isRequired,
     data: PropTypes.array.isRequired,
-    commentsCounter: PropTypes.array.isRequired,
     modal: PropTypes.func.isRequired,
 }
 
