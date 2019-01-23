@@ -11,30 +11,7 @@ import '../style.css'
 
 class App extends Component {
 
-    /* componentDidMount() {
-        const returnCards = JSON.parse(localStorage.getItem('cards'));
-        const returnComments = JSON.parse(localStorage.getItem('comments'));
-        const user = JSON.parse(localStorage.getItem('user'));
-        const welcome = JSON.parse(localStorage.getItem('welcome'));
-        const titles = JSON.parse(localStorage.getItem('titles'));
-
-        if (returnCards) {
-            this.props.updateCardsAction(returnCards);
-        }
-        if (returnComments) {
-            this.props.updateCommentsAction(returnComments);
-        }
-        if (user) {
-            this.props.visibleWelcomeAction(welcome);
-            this.props.setUserAction(user);
-        }
-        if(titles) {
-            this.props.changeTitleAction(titles);
-        }
-    } */
-
     render() {
-        console.log('-----render App')
         const isVisibleModal = this.props.isVisibleModal;
         const isVisibleWelcome = this.props.isVisibleWelcome;
         const isFetching = this.props.isFetching;

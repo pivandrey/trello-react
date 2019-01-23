@@ -11,7 +11,6 @@ class ListOfCard extends Component {
         const comments = this.props.comments
 
         if(data) {
-            console.log(data)
             cardsTemplate = data.map(function (item) {
                 return <CardMini key={item.id} id={item.id} modal={modal} data={item} comments={comments} />
             })
@@ -20,7 +19,6 @@ class ListOfCard extends Component {
     }
 
     render() {
-        console.log('-----render List of card')
         return (
             <div>
                 {this.renderCards()}

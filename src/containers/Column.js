@@ -51,7 +51,6 @@ class Column extends Component {
     }
 
     render() {
-        console.log('-----render Column')
         const { columnId, title, commentsList } = this.props;
         return (
             <div className={'column'} >

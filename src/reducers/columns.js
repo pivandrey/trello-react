@@ -1,7 +1,12 @@
 import { CHANGE_COLUMN_TITLE } from '../actions/columnsActions'
 
-const initialState = {
-    columnsList: [
+
+let archive = null;
+const returnColumns = JSON.parse(localStorage.getItem('columns'));
+if (returnColumns) {
+    archive = returnColumns
+} else {
+    archive = [
         {
             id: 1,
             title: 'column 1'
@@ -18,7 +23,11 @@ const initialState = {
             id: 4,
             title: 'column 4'
         },
-    ],
+    ]
+}
+
+const initialState = {
+    columnsList: archive,
 }
 
 export function columnsReducer(state = initialState, action) {
@@ -33,6 +42,10 @@ export function columnsReducer(state = initialState, action) {
                     return column
                 }
             })
+            
+            const serialColumnsTitle = JSON.stringify(columnsList);
+            localStorage.setItem('columns', serialColumnsTitle);
+
             return { columnsList: columnsList }
 
         default:

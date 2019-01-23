@@ -5,16 +5,8 @@ class ModalAddComment extends Component {
 
     state = {
         text: null,
-        id: '',
         validate: true
     };
-
-    componentWillMount() {
-        const uidDefault = require('uuid/v1');
-        this.setState ({
-            id: uidDefault()
-        })
-    }
 
     //обработка изменений в поле для создания новой карты
     handleChange = (e) => {
@@ -33,15 +25,10 @@ class ModalAddComment extends Component {
     onBtnClickHandler = (e) => {
         e.preventDefault();
 
-        const uid = require('uuid/v1');
-        this.setState ({
-            id: uid()
-        });
-
         const cardId = this.props.curCardId;
 
-        const { text, id } = this.state;
-        this.props.onAddComment({ id, text, cardId })
+        const { text } = this.state;
+        this.props.onAddComment({ text, cardId })
     };
 
     render() {

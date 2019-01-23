@@ -5,18 +5,9 @@ class AddCard extends Component {
     state = {
         openNewCard: false,
         title: '',
-        description: '',
-        id: '',
         validate: true,
     };
 
-    //задаем индивидуальный ID
-    componentWillMount() {
-        const uidDefault = require('uuid/v1');
-        this.setState ({
-            id: uidDefault()
-        })
-    }
 
     //visible для кнопки и для поля
     onButtonClick = () => {
@@ -46,13 +37,8 @@ class AddCard extends Component {
     //вызываем функцию добавления новой карты из родителя Column/index
     onBtnClickHandler = (e) => {
 
-        const uid = require('uuid/v1');
-        this.setState ({
-            id: uid()
-        });
-
-        const { id, title, description } = this.state;
-        this.props.onAddCards({ id, title, description });
+        const { title } = this.state;
+        this.props.onAddCards({ title });
         this.setState ({
             openNewCard: !this.state.openNewCard
         })

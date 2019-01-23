@@ -81,7 +81,6 @@ class Modal extends Component {
     };
 
     render() {
-        console.log('-----render Modal')
 
         return(
             <div className={'modal'}>

@@ -3,7 +3,7 @@ import { CHANGE_DESCRIPTION_CARD } from '../actions/cardsActions'
 import { ADD_CARD } from '../actions/cardsActions'
 import { DELETE_CARD } from '../actions/cardsActions'
 
-const archive = null;
+let archive = null;
 const returnCards = JSON.parse(localStorage.getItem('cards'));
 if (returnCards) {
     archive = returnCards
@@ -15,6 +15,10 @@ const initialState = {
     cardsList: archive,
 }
 
+const randomId = () => {
+    return Math.random().toString(36).substr(2, 9)
+}
+
 export function cardsReducer(state = initialState, action) {
     switch (action.type) {
         case CHANGE_TITLE_CARD:
@@ -24,6 +28,10 @@ export function cardsReducer(state = initialState, action) {
                 if (card.id === idTitle) return {...card, title: valueTitle}
                 else return card
             })
+
+            const serialCardsTitle = JSON.stringify(cardsTitle);
+            localStorage.setItem('cards', serialCardsTitle);
+
             return { cardsList: cardsTitle}
 
         case CHANGE_DESCRIPTION_CARD:
@@ -33,17 +41,30 @@ export function cardsReducer(state = initialState, action) {
                 if (card.id === idDescription) return {...card, description: valueDescription}
                 else return card
             })
+
+            const serialCardsDescription = JSON.stringify(cardsDescription);
+            localStorage.setItem('cards', serialCardsDescription);
+
             return { cardsList: cardsDescription}
 
         case ADD_CARD:
             const data = action.payload;
-            return { cardsList: [...state.cardsList, data]}
+            const newCardsArray = [...state.cardsList, {...data, id: randomId(), description: ''}]
+
+            const serialCardsAdd = JSON.stringify(newCardsArray);
+            localStorage.setItem('cards', serialCardsAdd);
+
+            return { cardsList: newCardsArray }
         
         case DELETE_CARD:
             const id = action.payload;
             const cardsDelete = state.cardsList.filter(function(card) {
                 return card.id !== id
             })
+
+            const serialCardsDelete = JSON.stringify(cardsDelete);
+            localStorage.setItem('cards', serialCardsDelete);
+
             return { cardsList: cardsDelete }
         
         default:
