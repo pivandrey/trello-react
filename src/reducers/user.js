@@ -1,9 +1,9 @@
 import { SET_USER } from '../actions/userAction'
 
 let archive = null;
-const returnCards = JSON.parse(localStorage.getItem('user'));
-if (returnCards) {
-    archive = returnCards
+const returnUser = JSON.parse(localStorage.getItem('user'));
+if (returnUser) {
+    archive = returnUser
 } else {
     archive = ''
 }

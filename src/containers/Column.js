@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
 import ListOfCard from '../components/Column/ListOfCard'
 import ColumnTitle from '../components/Column/ColumnTitle'
@@ -16,16 +17,14 @@ class Column extends Component {
     handleChangeTitleColumn = (e) => {
         const value = e.currentTarget.value;
         const id = this.props.columnId;
-        const data = {
-            id: id,
-            value: value,
-        }
-        this.props.changeTitleAction(data)
+        this.props.changeTitleAction({
+            id,
+            value,
+        })
     }
 
-    renderCards = () => {
-        const { columnId } = this.props;
-        const { cardsList } = this.props;
+    getCards = () => {
+        const { columnId, cardsList } = this.props;
 
         const cardsForColumn = cardsList.filter(function(card) {
             return card.columnId === columnId
@@ -43,6 +42,19 @@ class Column extends Component {
         this.props.sendCardAction(cardForModal[0]);
     };
 
+    calculateComments = () => {
+        const { commentsList, cardsList } = this.props;
+        const cards = cardsList.map(function (card) {
+            let x = 0;
+            commentsList.filter(function(comment) {
+                if (card.id === comment.cardId) return ++x
+            }); 
+            return { id: card.id, count: x }
+        })
+        console.log(cards)
+        return cards;
+    }
+
     handleAddCard = (data) => {
         const user = this.props.user;
         const columnId = this.props.columnId;
@@ -51,7 +63,7 @@ class Column extends Component {
     }
 
     render() {
-        const { columnId, title, commentsList } = this.props;
+        const { columnId, title } = this.props;
         return (
             <div className={'column'} >
                 <ColumnTitle 
@@ -61,9 +73,9 @@ class Column extends Component {
                 />
                 <ListOfCard
                     columnId={columnId}
-                    data={this.renderCards()}
+                    data={this.getCards()}
                     modal={this.handleShowModal}
-                    comments={commentsList}
+                    commentsCounter={this.calculateComments()}
                 />
                 <AddCard
                     onAddCards={this.handleAddCard}
@@ -71,6 +83,14 @@ class Column extends Component {
             </div>
         )
     }
+}
+
+Column.propTypes = {
+    columnId: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    user: PropTypes.string.isRequired,
+    cardsList: PropTypes.array.isRequired,
+    commentsList: PropTypes.array.isRequired,
 }
 
 const mapStateToProps = store => {

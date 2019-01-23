@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import CardTitle from "./CardTitle";
-import CardCommentsCount from "./CardCommentsCount";
+import PropTypes from 'prop-types'
 
 class CardMini extends Component {
 
@@ -10,29 +10,32 @@ class CardMini extends Component {
     }
 
     calculateComments = () => {
-        const comments = this.props.comments;
-        const curCard = this.props.id;
-        let commentsTemplate = null;
-
-        if(comments) {
-            commentsTemplate = comments.filter(function(comment){
-                return comment.cardId === curCard
-            })
-        }
-        return commentsTemplate.length
+        const { id } = this.props.data;
+        const { commentsCounter } = this.props;
+        const countOfComments = commentsCounter.filter(function(count) {
+            return count.id === id
+        })
+        return countOfComments[0].count;
     }
 
     render() {
 
-        const { title, comments, id } = this.props.data;
-
+        const { title } = this.props.data;
+        console.log(this.props.data.id)
         return(
             <div className={'card_mini'} onClick={this.handleClick} >
                 <CardTitle data={title} />
-                <CardCommentsCount data={comments} countComments={this.calculateComments()} id={id}/>
+                <p className={'comments-count'}>{this.calculateComments()}</p>
             </div>
         )
     }
+}
+
+CardMini.propTypes = {
+    id: PropTypes.string.isRequired,
+    data: PropTypes.object.isRequired,
+    modal: PropTypes.func.isRequired,
+    commentsCounter: PropTypes.array.isRequired,
 }
 
 export default CardMini

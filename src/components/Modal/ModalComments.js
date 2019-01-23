@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
-import '../../style.css'
+import PropTypes from 'prop-types'
+
 import Comment from './Comment'
+
+import '../../style.css'
 
 class ModalComments extends Component {
 
@@ -25,6 +28,11 @@ class ModalComments extends Component {
             </React.Fragment>
         )
     }
+}
+
+ModalComments.propTypes = {
+    comments: PropTypes.array,
+    deleteComment: PropTypes.func.isRequired,
 }
 
 export default ModalComments

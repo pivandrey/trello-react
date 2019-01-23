@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
 import Column from '../components/Column'
 
@@ -13,12 +14,15 @@ class Board extends Component {
                         key={c.id}
                         columnId={c.id}
                         title={c.title}
-                        changeTitle={this.changeTitle}
                     />
                 ))}
             </div>
         )
     }
+}
+
+Board.propTypes = {
+    columnsList: PropTypes.array.isRequired,
 }
 
 const mapStateToProps = store => {

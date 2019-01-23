@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types'
+
 import '../../style.css'
 
 class ModalTitle extends Component {
@@ -20,6 +22,12 @@ class ModalTitle extends Component {
             </React.Fragment>
         )
     }
+}
+
+ModalTitle.propTypes = {
+    title: PropTypes.string.isRequired,
+    user: PropTypes.string.isRequired,
+    changeTitle: PropTypes.func.isRequired,
 }
 
 export default ModalTitle

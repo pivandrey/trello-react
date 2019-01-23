@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types'
+
 import '../../style.css'
 
 class ModalDescription extends Component {
@@ -22,6 +24,11 @@ class ModalDescription extends Component {
             </div>
         )
     }
+}
+
+ModalDescription.propTypes = {
+    description: PropTypes.string.isRequired,
+    changeDescription: PropTypes.func.isRequired,
 }
 
 export default ModalDescription

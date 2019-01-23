@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 
 class ColumnTitle extends Component {
 
@@ -21,6 +22,11 @@ class ColumnTitle extends Component {
             </React.Fragment>
         )
     }
+}
+
+ColumnTitle.propTypes = {
+    columnId: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
 }
 
 export default ColumnTitle

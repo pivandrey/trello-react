@@ -1,4 +1,6 @@
 import React, {Component} from 'react'
+import PropTypes from 'prop-types'
+
 import { connect } from 'react-redux'
 import { setUser } from '../actions/userAction'
 import { visibleWelcome } from '../actions/visibleWelcomeActions'
@@ -36,7 +38,7 @@ class Welcome extends Component {
                         type="text"
                         name="user"
                         placeholder={'Введите Ваше имя'}
-                        onBlur={this.handleChangeUserName}
+                        onChange={this.handleChangeUserName}
                         onKeyUp={this.handlePressEnter}
                     ></textarea> <br />
                     <button
@@ -48,6 +50,10 @@ class Welcome extends Component {
             </div>
         )
     }
+}
+
+Welcome.propTypes = {
+    user: PropTypes.string.isRequired,
 }
 
 const mapStateToProps = store => {

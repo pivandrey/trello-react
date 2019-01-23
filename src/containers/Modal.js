@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
 import ModalTitle from "../components/Modal/ModalTitle";
 import ModalDescription from "../components/Modal/ModalDescription";
@@ -108,6 +109,13 @@ class Modal extends Component {
             </div>
         )
     }
+}
+
+Modal.propTypes = {
+    user: PropTypes.string.isRequired,
+    commentsList: PropTypes.array,
+    modalCard: PropTypes.object.isRequired,
+    currentCardId: PropTypes.string.isRequired,
 }
 
 const mapStateToProps = store => {

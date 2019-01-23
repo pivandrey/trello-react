@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types'
+
 import '../../style.css'
 
 class ModalAddComment extends Component {
@@ -51,6 +53,11 @@ class ModalAddComment extends Component {
             </div>
         )
     }
+}
+
+ModalAddComment.propTypes = {
+    onAddComment: PropTypes.func.isRequired,
+    curCardId: PropTypes.string.isRequired,
 }
 
 export default ModalAddComment

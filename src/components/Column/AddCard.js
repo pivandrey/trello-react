@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 
 class AddCard extends Component {
 
@@ -78,6 +79,10 @@ class AddCard extends Component {
             </React.Fragment>
         )
     }
+}
+
+AddCard.propTypes = {
+    onAddCards: PropTypes.func.isRequired,
 }
 
 export default AddCard

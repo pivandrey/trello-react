@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
 
 import Modal from './Modal'
@@ -31,6 +32,12 @@ class App extends Component {
             </div>
         )
     }
+}
+
+App.propTypes = {
+    isVisibleWelcome: PropTypes.bool.isRequired,
+    isVisibleModal: PropTypes.bool.isRequired,
+    isFetching: PropTypes.bool.isRequired,
 }
 
 const mapStateToProps = store => {
