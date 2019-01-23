@@ -3,8 +3,6 @@ import { connect } from 'react-redux'
 
 import Column from '../components/Column'
 
-import { getTitleForColumn } from '../actions/columnActions'
-
 class Board extends Component {
 
     render() {
@@ -13,7 +11,8 @@ class Board extends Component {
                 {this.props.columnsList.map(c => (
                     <Column
                         columnId={c.id}
-                        title={c.title} 
+                        title={c.title}
+                        changeTitle={this.changeTitle}
                     />
                 ))}
             </div>
@@ -27,13 +26,6 @@ const mapStateToProps = store => {
     }
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-        getTitleAction: id => dispatch(getTitleForColumn(id)),
-    }
-}
-
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+    mapStateToProps
 )(Board)

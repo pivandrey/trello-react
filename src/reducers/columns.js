@@ -1,32 +1,41 @@
-import DefaultColumnsTitle from '../defaultdata/DefaultColumnsTitle'
-import { CHANGE_TITLE } from '../actions/columnActions'
-import { GET_TITLE } from '../actions/columnActions'
+import { CHANGE_COLUMN_TITLE } from '../actions/columnsActions'
 
 const initialState = {
-    columnsTitleList: DefaultColumnsTitle,
+    columnsList: [
+        {
+            id: 1,
+            title: 'column 1'
+        },
+        {
+            id: 2,
+            title: 'column 2'
+        },
+        {
+            id: 3,
+            title: 'column 3'
+        },
+        {
+            id: 4,
+            title: 'column 4'
+        },
+    ],
 }
 
 export function columnsReducer(state = initialState, action) {
     switch (action.type) {
-        case CHANGE_TITLE:
-            return { columnsTitleList: action.payload }
+        case CHANGE_COLUMN_TITLE:
+            const { id } =  action.payload;
+            const { value } = action.payload;
+            const columnsList = state.map(function(c) {
+                if (c.id === id) {
+                    return c.title = value
+                } else {
+                    return c
+                }
+            })
+            return { columnsList: columnsList }
 
-        case GET_TITLE:
-            return { columnsTitleList: renderTitleForColumn(action.payload)}
-
-        default: 
+        default:
             return state
     }
-}
-
-const renderTitleForColumn = (id) => {
-    const titles = this.initialState.columnsTitleList;
-    let titlesTemplate = null;
-
-    if(titles) {
-        titlesTemplate = titles.filter(function(title) {
-            return title.columnId === id
-        })
-    }
-    return titlesTemplate[0]
 }

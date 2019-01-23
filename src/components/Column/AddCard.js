@@ -52,8 +52,7 @@ class AddCard extends Component {
         });
 
         const { id, title, description } = this.state;
-        const columnId = this.props.columnId;
-        this.props.onAddCards({ id, title, description, columnId });
+        this.props.onAddCards({ id, title, description });
         this.setState ({
             openNewCard: !this.state.openNewCard
         })

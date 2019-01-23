@@ -5,62 +5,67 @@ import ListOfCard from '../components/Column/ListOfCard'
 import ColumnTitle from '../components/Column/ColumnTitle'
 import AddCard from '../components/Column/AddCard'
 
-
+import { changeTitle } from '../actions/columnsActions'
+import { sendCard } from '../actions/modalCardActions'
+import { addCard } from '../actions/cardsActions'
 
 import '../../style.css'
 
 class Column extends Component {
 
-    onChangeHandlerTitle = (e) => {
+    handleChangeTitleColumn = (e) => {
+        const value = e.currentTarget.value;
         const id = this.props.columnId;
-        const newValue = e.target.value;
-        this.props.changeTitle({id, newValue})
-    };
-
-    handleChangeTitleColumn = (value, id) => {
-        const titles = this.props.columnsTitleList.columnsTitleList;
-        let titlesTemplate = null;
-
-        titlesTemplate = titles.map(function(title) {
-            if (title.columnId === id) {
-                title.title = value
-            }
-            return title
-        });
-
-        const serialTitles = JSON.stringify(titlesTemplate);
-        localStorage.setItem('titles', serialTitles);
-
-        this.props.changeTitleAction(titlesTemplate);
+        const data = {
+            id: id,
+            value: value,
+        }
+        this.props.changeTitleAction(data)
     }
 
-    getCards = () => {
+    renderCards = () => {
         const { columnId } = this.props;
-        return this.props.cards(columnId);
+        const { cardsList } = this.props;
+
+        const cardsForColumn = cardsList.filter(function(card) {
+            return card.columnId === columnId
+        })
+
+        return cardsForColumn;
     };
 
-    getTitle = () => {
-        const id = this.props.columnId;
-        return this.props.title(id);
+    handleShowModal = (id) => {
+        const cards = this.props.cardsList.cardsList;
+        const cardForModal = cards.filter(function(card) {
+            return card.id === id
+        });
+
+        this.props.sendCardAction(cardForModal[0]);
+    };
+
+    handleAddCard = (data) => {
+        const user = this.props.user;
+        const columnId = this.props.columnId;
+        const newCard = {...data, user: user, columnId: columnId}
+        this.props.addCardAction(newCard);
     }
 
     render() {
-        const { columnId } = this.props;
+        const { columnId, title, commentsList } = this.props;
         return (
             <div className={'column'} >
                 <ColumnTitle 
-                    columnId={columnId} 
-                    title={this.getTitle().title} 
-                    changeTitle={this.onChangeHandlerTitle} 
+                    columnId={columnId}
+                    title={title}
+                    changeTitle={this.handleChangeTitleColumn}
                 />
                 <ListOfCard
                     columnId={columnId}
-                    data={this.getCards()}
-                    modal={this.props.modal}
-                    comments={this.props.comments}
+                    data={this.renderCards()}
+                    modal={this.handleShowModal}
+                    comments={commentsList}
                 />
                 <AddCard
-                    columnId={columnId}
                     onAddCards = {this.props.createCard}
                 />
             </div>
@@ -70,17 +75,17 @@ class Column extends Component {
 
 const mapStateToProps = store => {
     return {
-        user: store.user,
-        cardsList: store.cards,
-        commentsList: store.comments,
-        columnsTitleList: store.columns,
+        user: store.user.user,
+        cardsList: store.cards.cardsList,
+        commentsList: store.comments.commentsList,
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        changeTitleAction: title => dispatch(changeTitle(title)),
-        updateCardsAction: cards => dispatch(updateCards(cards)),
+        changeTitleAction: data => dispatch(changeTitle(data)),
+        sendCardAction: card => dispatch(sendCard(card)),
+        addCardAction: cards => dispatch(addCard(cards)),
     }
 }
 
