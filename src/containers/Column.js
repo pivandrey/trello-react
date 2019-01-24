@@ -94,14 +94,6 @@ const mapStateToProps = store => {
   }
 }
 
-/* const mapDispatchToProps = dispatch => {
-  return {
-    changeTitleAction: data => dispatch(changeTitle(data)),
-    sendCardAction: card => dispatch(sendCard(card)),
-    addCardAction: cards => dispatch(addCard(cards)),
-  }
-} */
-
 const mapDispatchToProps = dispatch => bindActionCreators(
   {
     changeTitle,
