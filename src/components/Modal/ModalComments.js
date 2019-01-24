@@ -21,8 +21,6 @@ class ModalComments extends Component {
   };
 
   render() {
-    const comments = this.props.comments;
-    const deleteComment = this.props.deleteComment
     return(
       <React.Fragment>
         {this.renderComments()}

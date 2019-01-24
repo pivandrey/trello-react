@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
+import { bindActionCreators } from 'redux'
 
 import { connect } from 'react-redux'
 import { setUser } from '../actions/userAction'
@@ -10,17 +11,17 @@ class Welcome extends Component {
   handlePressEnter = (e) => {
     if (e.keyCode === 13) {
       e.preventDefault();
-      this.props.visibleWelcomeAction(false)
+      this.props.visibleWelcome(false)
     }
   }
 
   handleClickAccept = () => {
-    this.props.visibleWelcomeAction(false)
+    this.props.visibleWelcome(false)
   }
 
   handleChangeUserName = (e) => {
     const userName = e.target.value
-    this.props.setUserAction(userName)
+    this.props.setUser(userName)
   };
 
   validateWelcome = () => {
@@ -62,12 +63,13 @@ const mapStateToProps = store => {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    setUserAction: user => dispatch(setUser(user)),
-    visibleWelcomeAction: off => dispatch(visibleWelcome(off)),
-  }
-}
+const mapDispatchToProps = dispatch => bindActionCreators(
+  {
+    setUser,
+    visibleWelcome,
+  },
+  dispatch
+);
 
 export default connect(
   mapStateToProps,

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import { bindActionCreators } from 'redux'
 
 import ModalTitle from "../components/Modal/ModalTitle";
 import ModalDescription from "../components/Modal/ModalDescription";
@@ -22,7 +23,7 @@ class Modal extends Component {
       id: currentCardId,
       value: newValue,
     }
-    this.props.changeTitleCardAction(newTitle)
+    this.props.changeTitleCard(newTitle)
   };
 
   changeDescriptionFromModal = (e) => {
@@ -37,11 +38,11 @@ class Modal extends Component {
 
   handleAddComment = (newComment) => {
     const nextComment = {...newComment, author: this.props.user}
-    this.props.addCommentAction(nextComment);
+    this.props.addComments(nextComment);
   };
 
   handleDeleteComment = (id) => {
-    this.props.deleteCommentsAction(id);
+    this.props.deleteComments(id);
   };
 
   renderComments = () => {
@@ -59,8 +60,8 @@ class Modal extends Component {
 
   handleDeleteCard = () => {
     const cardID = this.props.currentCardId;
-    this.props.closeModalAction(false);
-    this.props.deleteCardAction(cardID);
+    this.props.closeModal(false);
+    this.props.deleteCard(cardID);
   };
     
   componentDidMount() {
@@ -71,14 +72,14 @@ class Modal extends Component {
     if (typeof window !== 'undefined') {
       window.addEventListener('keydown', (e) => {
         if (e.which === 27) {
-          this.props.closeModalAction(false);
+          this.props.closeModal(false);
         }
       });
     }
   };
 
   handleCloseModal = () => {
-    this.props.closeModalAction(false);
+    this.props.closeModal(false);
   };
 
   render() {
@@ -126,16 +127,17 @@ const mapStateToProps = store => {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    closeModalAction: off => dispatch(closeModal(off)),
-    deleteCardAction: id => dispatch(deleteCard(id)),
-    changeTitleCardAction: data => dispatch(changeTitleCard(data)),
-    changeDescriptionCard: data => dispatch(changeDescriptionCard(data)),
-    addCommentAction: data => dispatch(addComments(data)),
-    deleteCommentsAction: id => dispatch(deleteComments(id))
-  }
-}
+const mapDispatchToProps = dispatch => bindActionCreators(
+  {
+    closeModal,
+    deleteCard,
+    changeTitleCard,
+    changeDescriptionCard,
+    addComments,
+    deleteComments,
+  },
+  dispatch
+);
 
 export default connect(
   mapStateToProps,

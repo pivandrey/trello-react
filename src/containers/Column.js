@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import PropTypes from 'prop-types'
 
 import ListOfCard from '../components/Column/ListOfCard'
@@ -17,7 +18,7 @@ class Column extends Component {
   handleChangeTitleColumn = (e) => {
     const value = e.currentTarget.value;
     const id = this.props.columnId;
-    this.props.changeTitleAction({
+    this.props.changeTitle({
       id,
       value,
     })
@@ -32,6 +33,7 @@ class Column extends Component {
       let x = 0;
       commentsList.filter( (comment) => {
         if (card.id === comment.cardId) return ++x
+        else return null
       }); 
       return { ...card, countComments: x }
     })
@@ -44,14 +46,14 @@ class Column extends Component {
       return card.id === id
     });
 
-    this.props.sendCardAction(cardForModal[0]);
+    this.props.sendCard(cardForModal[0]);
   };
 
   handleAddCard = (data) => {
     const user = this.props.user;
     const columnId = this.props.columnId;
     const newCard = {...data, user: user, columnId: columnId}
-    this.props.addCardAction(newCard);
+    this.props.addCard(newCard);
   }
 
   render() {
@@ -92,13 +94,22 @@ const mapStateToProps = store => {
   }
 }
 
-const mapDispatchToProps = dispatch => {
+/* const mapDispatchToProps = dispatch => {
   return {
     changeTitleAction: data => dispatch(changeTitle(data)),
     sendCardAction: card => dispatch(sendCard(card)),
     addCardAction: cards => dispatch(addCard(cards)),
   }
-}
+} */
+
+const mapDispatchToProps = dispatch => bindActionCreators(
+  {
+    changeTitle,
+    sendCard,
+    addCard,
+  },
+  dispatch
+);
 
 export default connect(
   mapStateToProps,
